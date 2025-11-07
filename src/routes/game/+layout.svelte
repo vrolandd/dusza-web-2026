@@ -9,7 +9,7 @@
     }
 </script>
 
-<nav class="h-[75px] bg-accent flex items-center justify-end pr-6">
+<nav class="h-[75px] bg-accent flex items-center justify-end pr-6 sticky top-0">
     <Button onclick={signOut}><a href="/auth">Kijelentkezés</a></Button>
 </nav>
     

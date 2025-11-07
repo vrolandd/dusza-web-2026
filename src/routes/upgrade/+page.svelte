@@ -3,7 +3,7 @@
     import { Card } from "$lib/components/ui/card";
 </script>
 
-<div class="flex flex-col h-dvh">
+<div class="flex flex-col h-dvh justify-center">
     <div class="flex items-center justify-center pb-12">
         <h1>Kazamata neve meg az elerheto fejlesztes:</h1>
     </div>

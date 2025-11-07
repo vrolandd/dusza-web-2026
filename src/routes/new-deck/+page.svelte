@@ -3,7 +3,7 @@
     import { Card } from "$lib/components/ui/card";
 </script>
 
-<div class="flex flex-col h-dvh">
+<div class="flex flex-col h-dvh justify-center">
 
 
 

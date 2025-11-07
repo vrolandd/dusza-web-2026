@@ -3,7 +3,7 @@
 	import { Card } from "$lib/components/ui/card";
 </script>
 
-<div class="flex flex-col h-dvh">
+<div class="flex flex-col h-dvh justify-center">
     <div class="flex items-center justify-center pb-12">
         <Card class="pt-12 max-w-lg w-full flex flex-col justify-center items-center gap-8">
             <Button><a href="/create-deck">Pakli létrehozása</a></Button>

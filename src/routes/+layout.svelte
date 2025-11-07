@@ -21,6 +21,7 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<title>Damareen - Kókány Bt.</title>
 </svelte:head>
 
 {@render children()}

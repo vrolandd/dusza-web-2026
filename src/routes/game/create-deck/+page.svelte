@@ -8,27 +8,20 @@
 
 
     <div class="flex-col flex items-center justify-center pb-12">
-        <h1>Jelenlegi pakli:</h1>
-        <Card class="h-full pt-12 pb-12 max-w-lg w-full flex flex-col justify-center items-center gap-8">
-            <!--current deck-->
-        </Card>
-    </div>
-
-        <div class="flex-col flex items-center justify-center pb-12">
         <h1>Gyűjtemény:</h1>
         <Card class="h-full pt-12 pb-12 max-w-lg w-full flex flex-col justify-center items-center gap-8">
             <!--collection cards-->
         </Card>
     </div>
 
-    <div class="flex-col flex items-center justify-center pb-12">
-        <h1>Új pakli:</h1>
+        <div class="flex-col flex items-center justify-center pb-12">
+        <h1>Pakli:</h1>
         <Card class="h-full pt-12 pb-12 max-w-lg w-full flex flex-col justify-center items-center gap-8">
-            <!--new deck-->
+            <!--deck-->
         </Card>
     </div>
 
     <div class="flex flex-col items-center justify-center pt-12">
-        <Button><a href="/player">Tovább</a></Button>
+        <Button><a href="/game/player">Tovább</a></Button>
     </div>
 </div>

@@ -4,7 +4,7 @@
 </script>
 
 <h1 class="text-4xl pt-5 text-center">Játékmester - Új játékkörnyezet létrehozása</h1>
-<div class="flex flex-col items-center pt-25 h-dvh">
+<div class="flex flex-col items-center pt-25">
     
     <Card class="pt-12 pb-12 max-w-xl w-full flex flex-col justify-center items-center gap-8">
         <div class="flex flex-row justify-between max-w-xl w-full pl-10 pr-10">

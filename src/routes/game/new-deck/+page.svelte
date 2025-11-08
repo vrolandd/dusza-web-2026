@@ -4,26 +4,24 @@
 </script>
 
 <div class="flex flex-col h-dvh justify-center">
-    <div class="flex items-center justify-center pb-12">
-        <h1>Kazamata neve:</h1>
-    </div>
+
 
 
     <div class="flex-col flex items-center justify-center pb-12">
-        <h1>Kazamata kártyái:</h1>
+        <h1>Gyűjtemény:</h1>
         <Card class="h-full pt-12 pb-12 max-w-lg w-full flex flex-col justify-center items-center gap-8">
-            <!--kazamata cards-->
+            <!--collection cards-->
         </Card>
     </div>
 
-    <div class="flex-col flex items-center justify-center pb-12">
-        <h1>Játékos kártyái:</h1>
+        <div class="flex-col flex items-center justify-center pb-12">
+        <h1>Új Pakli:</h1>
         <Card class="h-full pt-12 pb-12 max-w-lg w-full flex flex-col justify-center items-center gap-8">
-            <!--player cards-->
+            <!--deck-->
         </Card>
     </div>
 
     <div class="flex flex-col items-center justify-center pt-12">
-        <Button><a href="/upgrade">Tovább</a></Button>
+        <Button><a href="/game/player">Tovább</a></Button>
     </div>
 </div>

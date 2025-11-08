@@ -6,11 +6,11 @@
 <div class="flex flex-col h-dvh justify-center">
     <div class="flex items-center justify-center pb-12">
         <Card class="pt-12 max-w-lg w-full flex flex-col justify-center items-center gap-8">
-            <Button><a href="/create-deck">Pakli létrehozása</a></Button>
-            <Button><a href="/arena">Kazamata kiválasztása</a></Button>
-            <Button><a href="/mod-deck">Pakli módosítása</a></Button>
-            <Button><a href="/new-deck">Új pakli létrehozása</a></Button>
-            <Button><a href="/fight">Harc</a></Button>
+            <Button><a href="/game/create-deck">Pakli létrehozása</a></Button>
+            <Button><a href="/game/arena">Kazamata kiválasztása</a></Button>
+            <Button><a href="/game/mod-deck">Pakli módosítása</a></Button>
+            <Button><a href="/game/new-deck">Új pakli létrehozása</a></Button>
+            <Button><a href="/game/fight">Harc</a></Button>
         </Card>
     </div>
 
@@ -30,7 +30,7 @@
     </div>
 
     <div class="flex flex-col items-center justify-center pt-12">
-        <Button><a href="/fight">Harc</a></Button>
+        <Button><a href="/game/fight">Harc</a></Button>
     </div>
 </div>
 

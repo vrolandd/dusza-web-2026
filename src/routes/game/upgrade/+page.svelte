@@ -16,6 +16,6 @@
     </div>
 
     <div class="flex flex-col items-center justify-center pt-12">
-        <Button><a href="/player">Tovább</a></Button>
+        <Button href="/player">Tovább</Button>
     </div>
 </div>

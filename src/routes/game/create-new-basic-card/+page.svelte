@@ -24,6 +24,21 @@
 		width: 200px;
 		text-align: center;
 	}
+
+	option {
+		background-color: black;
+		color: white;
+	}
+
+	select option:hover {
+		background-color: rgb(60, 60, 60);
+		color: white;
+	}
+
+	select option:checked {
+		background-color: rgb(80, 80, 80);
+		color: white;
+	}
 </style>
 
 <h1 class="pt-5 text-center text-4xl">Játékmester - Új sima kártya létrehozása</h1>
@@ -52,7 +67,12 @@
 				<label for="">Kártya életereje</label>
 				<input type="number" min="2" max="100" bind:value={cardHealth} placeholder="10">
 				<label for="">Kártya típusa</label>
-				<input type="text" placeholder="Tűz" bind:value={cardType}>
+				<select name="" id="" class="border border-white bg-black w-full p-2 rounded-[4px] text-center" bind:value={cardType}>
+					<option value="Tűz">Tűz</option>
+					<option value="Víz">Víz</option>
+					<option value="Föld">Föld</option>
+					<option value="Levegő">Levegő</option>
+				</select>
 				<button class="mt-5 border border-white rounded-[4px] cursor-pointer w-full p-2" on:click={createCard}>Kártya létrehozása</button>
 			</div>
 		</div>

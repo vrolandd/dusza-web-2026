@@ -7,12 +7,7 @@
 	let cardType = "";
 
 	function createCard() {
-		console.log({
-			name: cardName,
-			damage: cardDamage,
-			health: cardHealth,
-			type: cardType
-		});
+		//TODO Implement card creation logic and instert into database
 	}
 </script>
 

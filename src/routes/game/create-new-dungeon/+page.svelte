@@ -24,6 +24,7 @@
     let availableCards: Card[] = [];
     let errors: { [key: string]: string } = {};
     let isLoading = false;
+    let isCheckingName = false;
 
     const dungeonTypes = [
         { value: "simple", label: "Egyszerű találkozás", minCards: 1, maxCards: 3 },
@@ -46,11 +47,52 @@
         availableCards = data;
     }
 
+    // Check if dungeon name exists
+    async function checkDungeonName(name: string) {
+        if (!name) return;
+        
+        isCheckingName = true;
+        const { data, error } = await supabase
+            .from('dungeons')
+            .select('name')
+            .eq('name', name)
+            .maybeSingle();
+
+        if (error) {
+            console.error('Error checking dungeon name:', error);
+            return;
+        }
+
+        if (data) {
+            errors.name = "Már létezik ilyen nevű kazamata";
+        }
+        isCheckingName = false;
+    }
+
+    // Debounce function to prevent too many database calls
+    function debounce<T extends (...args: any[]) => any>(
+        func: T,
+        wait: number
+    ): (...args: Parameters<T>) => void {
+        let timeout: ReturnType<typeof setTimeout>;
+        return (...args: Parameters<T>) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func(...args), wait);
+        };
+    }
+
+    const debouncedCheckName = debounce(checkDungeonName, 300);
+
+    // Watch for name changes
+    $: if (dungeonName) {
+        debouncedCheckName(dungeonName);
+    }
+
     $: {
         // Validate inputs whenever they change
-        errors = {};
-        if (dungeonName.length < 3) {
-            errors.name = "A kazamata neve legalább 3 karakter hosszú kell legyen";
+        errors = { ...errors }; // Keep existing name error if present
+        if (!dungeonName) {
+            errors.name = "A kazamata nevét kötelező megadni";
         }
         if (!selectedType) {
             errors.type = "Válassz egy kazamata típust";
@@ -87,10 +129,22 @@
     }
 
     async function handleSubmit() {
-        if (Object.keys(errors).length > 0 || isLoading) return;
+        if (Object.keys(errors).length > 0 || isLoading || isCheckingName) return;
 
         isLoading = true;
         try {
+            // Final check for existing dungeon name
+            const { data: existingDungeon } = await supabase
+                .from('dungeons')
+                .select('name')
+                .eq('name', dungeonName)
+                .maybeSingle();
+
+            if (existingDungeon) {
+                errors.name = "Már létezik ilyen nevű kazamata";
+                return;
+            }
+
             const { data, error } = await supabase
                 .from('dungeons')
                 .insert([{
@@ -124,21 +178,25 @@
     <Card class="w-full">
         <CardContent class="flex flex-col gap-8 p-6">
             <form class="flex flex-col gap-8" on:submit|preventDefault={handleSubmit}>
-                <Field.Group>
-                    <Field.Field>
-                        <Field.Label>Kazamata neve</Field.Label>
-                        <Input 
-                            type="text" 
-                            placeholder="Sötét barlang" 
-                            bind:value={dungeonName}
-                        />
-                        {#if errors.name}
-                            <Field.Error>{errors.name}</Field.Error>
-                        {/if}
-                    </Field.Field>
-                </Field.Group>
-
-                <Field.Group>
+                    <Field.Group>
+                        <Field.Field>
+                            <Field.Label>
+                                Kazamata neve
+                                {#if isCheckingName}
+                                    <span class="ml-2 inline-block animate-spin">⟳</span>
+                                {/if}
+                            </Field.Label>
+                            <Input 
+                                type="text" 
+                                placeholder="Sötét barlang" 
+                                bind:value={dungeonName}
+                                class={errors.name ? "border-destructive" : ""}
+                            />
+                            {#if errors.name}
+                                <Field.Error>{errors.name}</Field.Error>
+                            {/if}
+                        </Field.Field>
+                    </Field.Group>                <Field.Group>
                     <Field.Field>
                         <Field.Label>Kazamata típusa</Field.Label>
                         <Select.Root 

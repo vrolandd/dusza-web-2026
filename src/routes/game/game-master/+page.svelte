@@ -8,7 +8,7 @@
 	<Card class="flex w-full max-w-xl flex-col items-center justify-center gap-8 pt-12 pb-12">
 		<div class="flex w-full max-w-xl flex-row justify-between pr-10 pl-10">
 			<div class="flex flex-col gap-5">
-				<Button>Új sima kártya létrehozása</Button>
+				<Button><a href="/game/create-new-basic-card">Új sima kártya létrehozása</a></Button>
 				<Button>Új vezér kártya létrehozása</Button>
 				<Button>Új kazamata létrehozása</Button>
 			</div>

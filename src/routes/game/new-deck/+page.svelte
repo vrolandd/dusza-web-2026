@@ -22,6 +22,6 @@
     </div>
 
     <div class="flex flex-col items-center justify-center pt-12">
-        <Button><a href="/game/player">Tovább</a></Button>
+        <Button href="/game/player">Tovább</Button>
     </div>
 </div>

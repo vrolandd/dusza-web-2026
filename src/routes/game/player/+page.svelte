@@ -3,14 +3,14 @@
 	import { Card } from "$lib/components/ui/card";
 </script>
 
-<div class="flex flex-col h-dvh justify-center">
+<div class="flex flex-col justify-center">
     <div class="flex items-center justify-center pb-12">
         <Card class="pt-12 max-w-lg w-full flex flex-col justify-center items-center gap-8">
-            <Button><a href="/game/create-deck">Pakli létrehozása</a></Button>
-            <Button><a href="/game/arena">Kazamata kiválasztása</a></Button>
-            <Button><a href="/game/mod-deck">Pakli módosítása</a></Button>
-            <Button><a href="/game/new-deck">Új pakli létrehozása</a></Button>
-            <Button><a href="/game/fight">Harc</a></Button>
+            <Button href="/game/create-deck">Pakli létrehozása</Button>
+            <Button href="/game/arena">Kazamata kiválasztása</Button>
+            <Button href="/game/mod-deck">Pakli módosítása</Button>
+            <Button href="/game/new-deck">Új pakli létrehozása</Button>
+            <Button href="/game/fight">Harc</Button>
         </Card>
     </div>
 
@@ -30,7 +30,7 @@
     </div>
 
     <div class="flex flex-col items-center justify-center pt-12">
-        <Button><a href="/game/fight">Harc</a></Button>
+        <Button href="/game/fight">Harc</Button>
     </div>
 </div>
 

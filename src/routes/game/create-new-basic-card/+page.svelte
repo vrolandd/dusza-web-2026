@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { Card } from '$lib/components/ui/card';
+	import Input from "$lib/components/ui/input/input.svelte";
+	import { Button } from '$lib/components/ui/button/index.js';
 
 	let cardName = "";
 	let cardDamage = "";
@@ -12,13 +14,6 @@
 </script>
 
 <style>
-	input {
-		border: 1px solid white;
-		border-radius: 4px;
-		padding: 5px;
-		width: 200px;
-		text-align: center;
-	}
 
 	option {
 		background-color: black;
@@ -56,11 +51,11 @@
 			</div>
 			<div class="flex flex-col items-center justify-center gap-5">
 				<label for="">Kártya neve</label>
-				<input type="text" placeholder="Aragorn" bind:value={cardName}>
+				<Input type="text" placeholder="Aragorn" bind:value={cardName} />
 				<label for="">Kártya sebzése</label>
-				<input type="number" min="1" max="100" bind:value={cardDamage} placeholder="6">
+				<Input type="number" min="1" max="100" bind:value={cardDamage} placeholder="6" />
 				<label for="">Kártya életereje</label>
-				<input type="number" min="2" max="100" bind:value={cardHealth} placeholder="10">
+				<Input type="number" min="2" max="100" bind:value={cardHealth} placeholder="10" />
 				<label for="">Kártya típusa</label>
 				<select name="" id="" class="border border-white bg-black w-full p-2 rounded-[4px] text-center" bind:value={cardType}>
 					<option value="Tűz">Tűz</option>
@@ -68,7 +63,10 @@
 					<option value="Föld">Föld</option>
 					<option value="Levegő">Levegő</option>
 				</select>
-				<button class="mt-5 border border-white rounded-[4px] cursor-pointer w-full p-2" on:click={createCard}>Kártya létrehozása</button>
+				<div role="button" tabindex="0" onclick={createCard}>
+					<Button class="mt-5 rounded-[4px] cursor-pointer w-full p-2" >Kártya létrehozása</Button>
+				</div>
+				
 			</div>
 		</div>
 	</Card>

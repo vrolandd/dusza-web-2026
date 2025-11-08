@@ -1,8 +1,9 @@
 import { createBrowserClient, createServerClient, isBrowser } from '@supabase/ssr'
 import { PUBLIC_SUPABASE_PUBLISHABLE_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public'
 import type { LayoutLoad } from './$types'
+import { redirect } from '@sveltejs/kit'
 
-export const load: LayoutLoad = async ({ data, depends, fetch }) => {
+export const load: LayoutLoad = async ({ data, depends, fetch, url }) => {
   /**
    * Declare a dependency so the layout can be invalidated, for example, on
    * session refresh.
@@ -38,6 +39,10 @@ export const load: LayoutLoad = async ({ data, depends, fetch }) => {
   const {
     data: { user },
   } = await supabase.auth.getUser()
+
+  if (url.pathname.startsWith('/game') && !session) {
+    throw redirect(303, '/auth')
+  }
 
   return { session, supabase, user }
 }

@@ -1,0 +1,60 @@
+<script lang="ts">
+	import { Card } from '$lib/components/ui/card';
+
+	let cardName = "";
+	let cardDamage = "";
+	let cardHealth = "";
+	let cardType = "";
+
+	function createCard() {
+		console.log({
+			name: cardName,
+			damage: cardDamage,
+			health: cardHealth,
+			type: cardType
+		});
+	}
+</script>
+
+<style>
+	input {
+		border: 1px solid white;
+		border-radius: 4px;
+		padding: 5px;
+		width: 200px;
+		text-align: center;
+	}
+</style>
+
+<h1 class="pt-5 text-center text-4xl">Játékmester - Új sima kártya létrehozása</h1>
+<div class="flex flex-col items-center pt-25">
+	<Card class="flex w-full max-w-xl flex-col items-center justify-center gap-8 pt-12 pb-12">
+		<div class="flex w-full max-w-xl flex-row justify-between pr-10 pl-10">
+			<div class="flex flex-col items-center justify-center">
+				<div class="h-[270px] w-[190px] border border-white ">
+					
+				</div>
+				<div class="flex flex-col h-[180px] w-[190px] border border-white pl-5 pr-5">
+					<p class="flex items-center justify-center pt-2 h-[60px]">{cardName}</p>
+					<div class="flex flex-row justify-between items-center h-[60px] pl-12 pr-12">
+						<p>{cardDamage}</p>
+						<p>/</p>
+						<p>{cardHealth}</p>
+					</div>
+					<p class="flex pb-2 h-[60px] justify-center items-center">{cardType}</p>
+				</div>	
+			</div>
+			<div class="flex flex-col items-center justify-center gap-5">
+				<label for="">Kártya neve</label>
+				<input type="text" placeholder="Aragorn" bind:value={cardName}>
+				<label for="">Kártya sebzése</label>
+				<input type="number" min="1" max="100" bind:value={cardDamage} placeholder="6">
+				<label for="">Kártya életereje</label>
+				<input type="number" min="2" max="100" bind:value={cardHealth} placeholder="10">
+				<label for="">Kártya típusa</label>
+				<input type="text" placeholder="Tűz" bind:value={cardType}>
+				<button class="mt-5 border border-white rounded-[4px] cursor-pointer w-full p-2" on:click={createCard}>Kártya létrehozása</button>
+			</div>
+		</div>
+	</Card>
+</div>

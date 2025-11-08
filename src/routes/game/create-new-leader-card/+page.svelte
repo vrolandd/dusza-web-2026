@@ -42,8 +42,8 @@
             </svg>
             
             <select name="" id="" class="border border-white bg-black w-[70%] p-2 rounded-[4px] text-center">
-                <option value="Sebzés">Sebzés</option>
-                <option value="Életerő">Életerő</option>
+                <option value="Sebzés">2x Sebzés</option>
+                <option value="Életerő">2x Életerő</option>
             </select>
 
             <svg xmlns="http://www.w3.org/2000/svg" width={60} height={60} viewBox="0 0 15 15">

@@ -10,8 +10,8 @@
 </script>
 
 <nav class="h-[75px] bg-accent flex items-center justify-end pr-6 sticky top-0">
+    <Button class="mr-5"><a href="/choose-role">Főmenü</a></Button>
     <Button onclick={signOut}><a href="/auth">Kijelentkezés</a></Button>
-    <Button><a href="/choose-role">Főmenü</a></Button>
 </nav>
     
 {@render children()}

@@ -17,14 +17,14 @@ export const actions: Actions = {
         }
 
         const { data: card, error } = await supabase
-            .from('leader_cards')
+            .from('dungeon_cards')
             .insert({
                 name,
                 element,
                 attack,
                 hp,
                 bucket_id,
-                islead
+                islead,
             })
             .select()
             .single();

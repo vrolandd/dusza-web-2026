@@ -3,7 +3,7 @@ import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
     const { data: cards, error } = await supabase
-        .from('cards')
+        .from('dungeon_cards')
         .select('*')
         .order('created_at', { ascending: false });
 

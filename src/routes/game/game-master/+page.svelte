@@ -10,7 +10,7 @@
 			<div class="flex flex-col gap-5">
 				<Button href="/game/create-new-basic-card">Új sima kártya létrehozása</Button>
 				<Button href="/game/create-new-leader-card">Új vezér kártya létrehozása</Button>
-				<Button>Új kazamata létrehozása</Button>
+				<Button href="/game/create-new-dungeon">Új kazamata létrehozása</Button>
 			</div>
 			<div class="flex flex-col justify-center gap-5">
 				<Button href="/game/existing-cards">Meglévő kártyák</Button>

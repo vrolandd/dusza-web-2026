@@ -13,7 +13,7 @@
 				<Button>Új kazamata létrehozása</Button>
 			</div>
 			<div class="flex flex-col justify-center gap-5">
-				<Button>Meglévő kártyák</Button>
+				<Button href="/game/existing-cards">Meglévő kártyák</Button>
 				<Button>Játékkörnyezet elnevezése</Button>
 			</div>
 		</div>

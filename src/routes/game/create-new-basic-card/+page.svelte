@@ -3,10 +3,13 @@
 	import Input from "$lib/components/ui/input/input.svelte";
 	import { Button } from '$lib/components/ui/button/index.js';
 
+	type ElementType = 'tuz' | 'viz' | 'fold' | 'levego';
+
 	let cardName = "";
 	let cardDamage = "";
 	let cardHealth = "";
-	let cardType = "";
+	let cardType: ElementType | "" = "";
+	let cardImage = "";
 
 	console.log(cardName, cardDamage, cardHealth, cardType);
 
@@ -20,6 +23,56 @@
 		return map[e] ?? e;
 	}
 
+	const images = {
+		tuz: [
+			"fire/akalith.png",
+			"fire/emberchain.png",
+			"fire/gnarrik.png",
+			"fire/headless_horseman.png",
+			"fire/pyrehelm.png",
+			"fire/pyron.png",
+			"fire/Solara.png",
+			"fire/zyraen.png",
+		],
+		viz: [
+			"water/ezrafel.png",
+			"water/fyzar.png",
+			"water/galion.png",
+			"water/hekarion.png",
+			"water/kha'zir.png",
+			"water/mordakar.png",
+			"water/olavorn.png",
+			"water/tharash.png",
+		],
+		fold: [
+			"earth/amurak.png",
+			"earth/janett.png",
+			"earth/leonara.png",
+			"earth/malphor.png",
+			"earth/malzareth.png",
+			"earth/pantheor.png",
+			"earth/renekar.png",
+			"earth/skarneth.png",
+		],
+		levego: [
+			"air/anyvia.png",
+			"air/bateria.png",
+			"air/corgi.png",
+			"air/frostwing.png",
+			"air/kaelyn.png",
+			"air/lightwing.png",
+			"air/lumosz.png",
+			"air/zephyros.png",
+		]
+	};
+	
+	$: filteredImages = cardType ? images[cardType] : [];
+	$: if(filteredImages.length && !filteredImages.includes(cardImage)) cardImage = filteredImages[0];
+
+	// Supabase public URL előállítása (például)
+	function getImageUrl(path: string) {
+		return `https://ljogpuxophtjfqxllkgs.supabase.co/storage/v1/object/public/cards/${path}`;
+	}
 </script>
 
 <style>
@@ -48,7 +101,7 @@
 			<div class="flex w-full max-w-xl flex-row justify-between pr-10 pl-10">
 				<div class="flex flex-col items-center justify-center">
 					<div class="h-[270px] w-[190px] border border-white ">
-						
+						<img src={getImageUrl(cardImage)} alt="">
 					</div>
 					<div class="flex flex-col h-[180px] w-[190px] border border-white pl-5 pr-5">
 						<p class="flex items-center justify-center pt-2 h-[60px]">{cardName}</p>
@@ -74,6 +127,15 @@
 						<option value="fold">Föld</option>
 						<option value="levego">Levegő</option>
 					</select>
+
+					{#if filteredImages.length > 0}
+						<p>Kártya képe</p>
+						<select name="image" class="border border-white bg-black w-full p-2 rounded-[4px] text-center" bind:value={cardImage}>
+							{#each filteredImages as img}
+								<option value={img}>{img.split("/")[1]}</option>
+							{/each}
+						</select>
+					{/if}
 					<Button class="mt-5 rounded-[4px] cursor-pointer w-full p-2" type="submit">Kártya létrehozása</Button>
 				</div>
 			</div>

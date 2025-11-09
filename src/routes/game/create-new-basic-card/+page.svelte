@@ -118,16 +118,16 @@
 
 				<div class="flex flex-col items-center justify-center gap-5">
 					<label>Kártya neve</label>
-					<Input type="text" name="title" placeholder="Aragorn" bind:value={cardName} />
+					<Input type="text" name="title" placeholder="Aragorn" bind:value={cardName} required/>
 
 					<label>Kártya sebzése</label>
-					<Input type="number" name="damage" min="1" max="100" bind:value={cardDamage} placeholder="6" />
+					<Input type="number" name="damage" min="1" max="100" bind:value={cardDamage} placeholder="6" required/>
 
 					<label>Kártya életereje</label>
-					<Input type="number" name="hp" min="2" max="100" bind:value={cardHealth} placeholder="10" />
+					<Input type="number" name="hp" min="2" max="100" bind:value={cardHealth} placeholder="10" required/>
 
 					<label>Kártya típusa</label>
-					<select name="type" class="border border-white bg-black w-full p-2 rounded-[4px] text-center" bind:value={cardType}>
+					<select name="type" class="border border-white bg-black w-full p-2 rounded-[4px] text-center" bind:value={cardType} required>
 						<option value="tuz">Tűz</option>
 						<option value="viz">Víz</option>
 						<option value="fold">Föld</option>

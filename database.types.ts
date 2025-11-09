@@ -250,29 +250,35 @@ export type Database = {
       dungeon_cards: {
         Row: {
           attack: number
+          bucket_id: string | null
           created_at: string | null
           dungeon_id: string | null
           element: string
           hp: number
           id: string
+          islead: boolean | null
           name: string
         }
         Insert: {
           attack: number
+          bucket_id?: string | null
           created_at?: string | null
           dungeon_id?: string | null
           element: string
           hp: number
           id?: string
+          islead?: boolean | null
           name: string
         }
         Update: {
           attack?: number
+          bucket_id?: string | null
           created_at?: string | null
           dungeon_id?: string | null
           element?: string
           hp?: number
           id?: string
+          islead?: boolean | null
           name?: string
         }
         Relationships: [
@@ -322,28 +328,34 @@ export type Database = {
       player_cards: {
         Row: {
           attack: number
+          bucket_id: string | null
           created_at: string | null
           element: string
           hp: number
           id: string
+          islead: boolean
           name: string
           player_id: string | null
         }
         Insert: {
           attack: number
+          bucket_id?: string | null
           created_at?: string | null
           element: string
           hp: number
           id?: string
+          islead?: boolean
           name: string
           player_id?: string | null
         }
         Update: {
           attack?: number
+          bucket_id?: string | null
           created_at?: string | null
           element?: string
           hp?: number
           id?: string
+          islead?: boolean
           name?: string
           player_id?: string | null
         }

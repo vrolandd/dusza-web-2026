@@ -21,15 +21,17 @@
     let selectedType = "";
     let selectedDungeonCards: Card[] = [];
     let selectedWorldCards: Card[] = [];
+    let selectedLeaderCardId: string = "";
     let availableCards: Card[] = [];
     let errors: { [key: string]: string } = {};
     let isLoading = false;
     let isCheckingName = false;
 
     const dungeonTypes = [
-        { value: "simple", label: "Egyszerű találkozás", minCards: 1, maxCards: 3 },
-        { value: "small", label: "Kis kazamata", minCards: 3, maxCards: 5 },
-        { value: "large", label: "Nagy kazamata", minCards: 5, maxCards: 10 }
+        // Rules: exact number of dungeon cards required per type
+        { value: "simple", label: "Egyszerű találkozás", requiredCards: 1, requireLeader: false },
+        { value: "small", label: "Kis kazamata", requiredCards: 3, requireLeader: true },
+        { value: "large", label: "Nagy kazamata", requiredCards: 5, requireLeader: true }
     ];
 
     // Load available cards from Supabase
@@ -99,8 +101,28 @@
         }
         
         const selectedTypeConfig = dungeonTypes.find(t => t.value === selectedType);
-        if (selectedTypeConfig && selectedDungeonCards.length < selectedTypeConfig.minCards) {
-            errors.dungeonCards = `Legalább ${selectedTypeConfig.minCards} kazamata kártyát kell választanod`;
+        if (selectedTypeConfig) {
+            // Exact number required
+            if (selectedDungeonCards.length !== selectedTypeConfig.requiredCards) {
+                errors.dungeonCards = `Pontosan ${selectedTypeConfig.requiredCards} kazamata kártyát kell választanod`;
+            } else {
+                delete errors.dungeonCards;
+            }
+
+            if (selectedTypeConfig.requireLeader) {
+                if (!selectedLeaderCardId) {
+                    errors.leader = "Válassz egy vezérkártyát (kötelező a kis és nagy kazamatához)";
+                } else {
+                    delete errors.leader;
+                }
+                // Disallow leader being present among dungeon cards
+                if (selectedLeaderCardId && selectedDungeonCards.some(c => c.id === selectedLeaderCardId)) {
+                    errors.leader = "A vezérkártya nem lehet egyszerre a kazamata listában is";
+                }
+            } else {
+                delete errors.leader;
+                selectedLeaderCardId = ""; // ensure leader cleared for simple dungeons
+            }
         }
     }
 
@@ -114,13 +136,31 @@
 
         if (targetList === 'dungeon') {
             const typeConfig = dungeonTypes.find(t => t.value === selectedType);
-            if (typeConfig && selectedDungeonCards.length >= typeConfig.maxCards) {
-                errors.dungeonCards = `Maximum ${typeConfig.maxCards} kazamata kártyát választhatsz`;
+            if (!typeConfig) {
+                errors.dungeonCards = `Előbb válassz kazamata típust`;
+                return;
+            }
+            // Prevent adding leader card into dungeon list
+            if (selectedLeaderCardId && card.id === selectedLeaderCardId) {
+                errors.dungeonCards = `A vezérkártyát nem adhatod hozzá a kazamata kártyákhoz`;
+                return;
+            }
+            if (selectedDungeonCards.length >= typeConfig.requiredCards) {
+                errors.dungeonCards = `Pontosan ${typeConfig.requiredCards} kazamata kártyát kell választanod`;
                 return;
             }
             selectedDungeonCards = [...selectedDungeonCards, card];
         } else {
             selectedWorldCards = [...selectedWorldCards, card];
+        }
+    }
+
+    // Called when the leader select changes: set leader and remove it from dungeon cards if present
+    function handleLeaderSelect(event: Event) {
+        const val = (event.target as HTMLSelectElement).value;
+        selectedLeaderCardId = val;
+        if (selectedLeaderCardId) {
+            selectedDungeonCards = selectedDungeonCards.filter(c => c.id !== selectedLeaderCardId);
         }
     }
 
@@ -151,7 +191,8 @@
                     name: dungeonName,
                     type: selectedType,
                     dungeon_cards: selectedDungeonCards.map(c => c.id),
-                    world_cards: selectedWorldCards.map(c => c.id)
+                    world_cards: selectedWorldCards.map(c => c.id),
+                    leader_card: selectedLeaderCardId || null
                 }])
                 .select()
                 .single();
@@ -253,7 +294,7 @@
                             >
                                 {#if selectedDungeonCards.length === 0}
                                     <div class="flex h-full w-full items-center justify-center text-muted-foreground">
-                                        Húzz ide kazamata kártyákat...
+                                        Húzd ide kazamata kártyákat...
                                     </div>
                                 {:else}
                                     {#each selectedDungeonCards as card}
@@ -276,6 +317,29 @@
                         </Field.Field>
                     </Field.Group>
                 </div>
+
+                
+                <Field.Group>
+                    <Field.Field>
+                        <Field.Label>Vezérkártya</Field.Label>
+                        {#if selectedType === 'small' || selectedType === 'large'}
+                            <select
+                                class="w-full rounded-md border p-2 bg-transparent"
+                                value={selectedLeaderCardId}
+                                on:change={handleLeaderSelect}
+                            >
+                                <option value="">Válassz vezérkártyát...</option>
+                                {#each availableCards as card}
+                                    <option value={card.id}>{card.name}</option>
+                                {/each}
+                            </select>
+                            <!-- Dropdown shows only card names; selected name display removed to rely on the select value -->
+                            {#if errors.leader}
+                                <Field.Error>{errors.leader}</Field.Error>
+                            {/if}
+                        {/if}
+                    </Field.Field>
+                </Field.Group>
 
                 {#if errors.submit}
                     <div class="text-destructive text-sm">{errors.submit}</div>
